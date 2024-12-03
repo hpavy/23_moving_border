@@ -10,7 +10,9 @@ def train(
     nb_epoch,
     train_loss,
     test_loss,
-    poids,
+    weight_data,
+    weight_pde,
+    weight_border,
     model,
     loss,
     optimizer,
@@ -23,14 +25,6 @@ def train(
     Re,
     time_start,
     f,
-    x_std,
-    y_std,
-    u_mean,
-    v_mean,
-    p_std,
-    t_std,
-    u_std,
-    v_std,
     folder_result,
     save_rate,
     batch_size,
@@ -67,14 +61,14 @@ def train(
                 pred_pde,
                 X_pde_batch,
                 Re=Re,
-                x_std=x_std,
-                y_std=y_std,
-                u_mean=u_mean,
-                v_mean=v_mean,
-                p_std=p_std,
-                t_std=t_std,
-                u_std=u_std,
-                v_std=v_std,
+                x_std=mean_std['x_std'],
+                y_std=mean_std['y_std'],
+                u_mean=mean_std['u_mean'],
+                v_mean=mean_std['v_mean'],
+                p_std=mean_std['p_std'],
+                t_std=mean_std['t_std'],
+                u_std=mean_std['u_std'],
+                v_std=mean_std['v_std'],
                 ya0=ya0,
                 w_0=w_0,
                 param_adim=param_adim,
@@ -97,8 +91,8 @@ def train(
             loss_border_cylinder = loss(
                 pred_border[:, :2], goal_border)  # (MSE)
 
-            loss_totale = 5/10 * loss_data + 5/10 * \
-                loss_pde  # + 1/10 * loss_border_cylinder
+            loss_totale = weight_data * loss_data + weight_pde * \
+                loss_pde + weight_border * loss_border_cylinder
 
             # Backpropagation
             loss_totale.backward(retain_graph=True)
@@ -119,19 +113,19 @@ def train(
             test_pde,
             X_test_pde,
             Re=Re,
-            x_std=x_std,
-            y_std=y_std,
-            u_mean=u_mean,
-            v_mean=v_mean,
-            p_std=p_std,
-            t_std=t_std,
-            u_std=u_std,
-            v_std=v_std,
+            x_std=mean_std['x_std'],
+            y_std=mean_std['y_std'],
+            u_mean=mean_std['u_mean'],
+            v_mean=mean_std['v_mean'],
+            p_std=mean_std['p_std'],
+            t_std=mean_std['t_std'],
+            u_std=mean_std['u_std'],
+            v_std=mean_std['v_std'],
             ya0=ya0,
             w_0=w_0,
             param_adim=param_adim,
             mean_std=mean_std
-    )
+        )
         loss_test_pde = (
             torch.mean(test_pde1**2)
             + torch.mean(test_pde2**2)
@@ -149,8 +143,8 @@ def train(
             pred_border_test[:, :2], goal_border_test)  # (MSE)
 
         # loss totale
-        loss_test = 5/10 * loss_test_data + 5/10 * \
-            loss_test_pde  # + 1/10 * loss_test_border
+        loss_test = weight_data * loss_test_data + weight_pde * \
+            loss_test_pde + weight_border * loss_test_border
         scheduler.step()
         with torch.no_grad():
             test_loss["total"].append(loss_test.item())

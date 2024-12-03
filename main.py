@@ -17,8 +17,9 @@ hyper_param_init = {
     "file": "data_john_2_case_2.csv",
     "nb_epoch": 10000,  # epoch number
     "save_rate": 50,  # rate to save
-    "weight_data": 1,
-    "weight_pde": 1,
+    "weight_data": 4/10,
+    "weight_pde": 4/10,
+    "weight_border": 1/10,
     "batch_size": 10000,  # for the pde
     "nb_points_pde": 1000000,  # Total number of pde points
     "Re": 100,
@@ -36,7 +37,8 @@ hyper_param_init = {
     "t_min": 6.5,
     "t_max": 8,
     "transfert_learning": "None",
-    "nb_points_close_cylinder": 50
+    "nb_points_close_cylinder": 50,
+    "nb_points_border": 50,
 }
 
 param_adim = {

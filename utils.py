@@ -127,7 +127,7 @@ def charge_data(hyper_param, param_adim):
 
     # les points du bord
 
-    nb_border = 100
+    nb_border = hyper_param['nb_points_border']
     teta_int = np.linspace(0, 2*np.pi, nb_border)
     X_border = np.zeros((0, 3))
     for time in np.unique(t_norm_full):
@@ -145,7 +145,7 @@ def charge_data(hyper_param, param_adim):
             ).reshape(-1, 3)
             X_border = np.concatenate((X_border, new_x))
 
-    teta_int_test = np.linspace(0, 2*np.pi, 133)
+    teta_int_test = np.linspace(0, 2*np.pi, 53)
     X_border_test = np.zeros((0, 3))
     for time in np.unique(t_norm_full):
         for teta in teta_int_test:
