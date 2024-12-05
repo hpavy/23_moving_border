@@ -6,20 +6,20 @@ print(device)
 
 ############# VARIABLES ################
 
-folder_result_name = "5_model_2_case_2"  # name of the result folder
+folder_result_name = "8_model_3_case_2_zoom"  # name of the result folder
 
 # Uniquement si nouveau modèle
 
 hyper_param_init = {
     "H": 230.67,  # la rigidité du ressort
-    "ya0": 0.0025,  # la position initiale du ressort
+    "ya0": 0.0175,  # la position initiale du ressort
     "m": 1.57,    # la masse du ressort
-    "file": "data_john_2_case_2.csv",
+    "file": "data_john_3_case_2.csv",
     "nb_epoch": 10000,  # epoch number
     "save_rate": 50,  # rate to save
-    "weight_data": 4/10,
-    "weight_pde": 4/10,
-    "weight_border": 1/10,
+    "weight_data": 10/21,
+    "weight_pde": 10/21,
+    "weight_border": 1/21,
     "batch_size": 10000,  # for the pde
     "nb_points_pde": 1000000,  # Total number of pde points
     "Re": 100,
@@ -38,7 +38,7 @@ hyper_param_init = {
     "t_max": 8,
     "transfert_learning": "None",
     "nb_points_close_cylinder": 50,
-    "nb_points_border": 50,
+    "nb_points_border": 25,
 }
 
 param_adim = {
