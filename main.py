@@ -23,8 +23,8 @@ hyper_param_init = {
     "batch_size": 10000,  # for the pde
     "nb_points_pde": 1000000,  # Total number of pde points
     "Re": 100,
-    "lr_init": 1e-3,  # Learning rate at the begining of training
-    "gamma_scheduler": 0.999,  # Gamma scheduler for lr
+    "lr_init": 0.001,
+    "gamma_scheduler": 0.999,
     "nb_layers": 10,
     "nb_neurons": 64,
     "n_pde_test": 5000,
